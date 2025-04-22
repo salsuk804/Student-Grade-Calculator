@@ -1,0 +1,145 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+
+void getGrades(int arr[], const int size,int num_of_grades[]);
+int calculateGrade(int marks);
+void displayResult(int num_of_grades[]);
+int avgGrade(int num_of_grades[],const int size);
+int maxGrade(int num_of_grades[]);
+int minGrade(int num_of_grades[]);
+int medianGrade(const int size, int num_of_grade[], int StudentMarks[]);
+
+int main()
+{
+    char grades[] = { 'A','B','C','D','F' };
+    int num_of_grades[5] = {0};
+    int StudentMarks[500];
+    
+
+    int size = 0;
+
+    cout << "Enter Total Number of Students: ";
+    cin >> size;
+
+    cout << endl;
+
+    getGrades(StudentMarks, size, num_of_grades);
+    displayResult(num_of_grades);
+    
+    cout << "Maximum Grade: " << grades[maxGrade(num_of_grades)]<<endl;
+    cout << "Minimun Grade: " << grades[minGrade(num_of_grades)] << endl;
+    cout << "Median Grade: " << grades[medianGrade(size,num_of_grades, StudentMarks)] << endl;
+    cout << "Average Grade: " << grades[avgGrade(num_of_grades,size)] << endl;
+
+   
+    return 0;
+}
+
+void getGrades(int arr[], const int size,int num_of_grades[]) {
+    int marks = 0;
+    int result = 0;
+    for (int i = 0; i < size; i++) {
+        cout << "Enter Student Marks: ";
+        cin >> arr[i];
+        marks = arr[i];
+        result =calculateGrade(marks);
+        num_of_grades[result] += 1;
+    }
+
+}
+
+int calculateGrade(int marks) {
+    if (marks > 80) {
+        return 0;
+    }
+    else if (marks > 70 && marks <= 80) {
+        return 1;
+    }
+    else if (marks > 55 && marks <= 70) {
+        return 2;
+    }
+    else if (marks > 40 && marks <= 55) {
+        return 3;
+    }
+    else if (marks < 40) {
+        return 4;
+    }
+}
+
+void displayResult(int num_of_grades[]) {
+
+    cout << "Number of A grades: " << num_of_grades[0] << endl;
+    cout << "Number of B grades: " << num_of_grades[1] << endl;
+    cout << "Number of C grades: " << num_of_grades[2] << endl;
+    cout << "Number of D grades: " << num_of_grades[3] << endl;
+    cout << "Number of F grades: " << num_of_grades[4] << endl;
+
+}
+
+
+
+int avgGrade(int num_of_grades[], const int size) {
+
+    int avg = 0;
+    int sum = 0;
+    int marks = 0;
+    for (int i = 0; i < 5; i++) {
+        sum += num_of_grades[i];
+    }
+    avg = sum / size;
+ 
+    return calculateGrade(avg);
+
+}
+int maxGrade(int num_of_grades[]) {
+
+    int index = -1;
+    
+    for (int i = 0; i < 5; i++) {
+        if (num_of_grades[i] > index) {
+            index = i;
+        }
+    }
+    return index;
+ }
+
+int minGrade(int num_of_grades[]) {
+    int index = 5000;
+    
+    for (int i = 0; i < 5; i++) {
+        if (num_of_grades[i] ==0) {
+            continue;
+        }
+        else if (num_of_grades[i] < index) {
+            index = i;
+        }
+    }
+ 
+    return index;
+}
+
+
+int medianGrade(const int size, int num_of_grade[],int StudentMarks[]) {
+
+    int median = size / 2;
+    int marks = 0;
+    int sum = 0;
+    for (int i = 0; i < 5; i++) {
+        if (sum <= median) {
+            sum += num_of_grade[i];
+        }
+        else {
+            break;
+        }
+    }
+    marks =StudentMarks[sum];
+    
+    return calculateGrade(marks);
+
+}
+
+
+
+
