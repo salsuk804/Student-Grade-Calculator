@@ -1,4 +1,4 @@
-# Student-Grade-Calculator
+# Student Grades Analyzer – C++ Program
 
 *****Use of any built-in data type such as string, vectors etc. is not allowed*****
 
